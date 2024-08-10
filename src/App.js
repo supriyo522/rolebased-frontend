@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Register from './components/Register';
+import Login from './components/Login';
+import UploadDocument from './components/UploadDocument';
+import DocumentsList from './components/DocumentsList';
 
-function App() {
+const App = () => {
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [role, setRole] = useState(localStorage.getItem('role') || '');
+
+  useEffect(() => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('role', role);
+  }, [token, role]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <h1>Role-Based Application</h1>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setToken={setToken} setRole={setRole} />} />
+          <Route path="/upload" element={token && role === 'A' ? <UploadDocument token={token} /> : <Navigate to="/login" />} />
+          <Route path="/documents" element={token && role === 'B' ? <DocumentsList token={token} /> : <Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/register" />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
-export default App;
+export default App;     
+
+
+
+
+

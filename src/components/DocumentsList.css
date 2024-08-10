@@ -1,0 +1,31 @@
+
+.documents-container {
+    margin: 20px;
+  }
+  
+  .documents-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .documents-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .documents-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .documents-list button {
+    margin-left: 10px;
+  }
+  
+  .nav-buttons {
+    margin-bottom: 10px;
+  }
+  
+  .nav-buttons button {
+    margin-right: 10px;
+  }
+  
